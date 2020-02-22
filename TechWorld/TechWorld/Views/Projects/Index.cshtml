@@ -1,0 +1,143 @@
+﻿@model TechWorld.Models.CustomModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Start breadcrumb area-->
+<section class="breadcrumb-area style2" style="background-image: url(../../Content/images/resources/breadcrumb-bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="inner-content-box clearfix">
+                    <div class="title-s2 text-center">
+                        <span>Our PORTFOLIO</span>
+                        <h1>More than 2300 Projects</h1>
+                    </div>
+                    <div class="breadcrumb-menu float-right">
+                        <ul class="clearfix">
+                            <li><a href="@Url.Action("Index", "Home")">HOME</a></li>
+                            <li class="active">PORTFOLIO</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End breadcrumb area-->
+<!--Start Main project area style2-->
+<section class="main-project-area style2">
+    <div class="container">
+        <ul class="project-filter post-filter has-dynamic-filters-counter">
+
+            @*<li data-filter=".filter-item" class="active"><span class="filter-text">All Projects</span></li>
+                <li data-filter=".mod"><span class="filter-text">Modern</span></li>
+                <li data-filter=".contem"><span class="filter-text">Contemporary</span></li>
+                <li data-filter=".trad"><span class="filter-text">Traditional</span></li>
+                <li data-filter=".ret"><span class="filter-text">Retreat</span></li>*@
+
+            @{
+                foreach (var item in Model.projectCategoryModel)
+                {
+                    <li data-tabs="tab10" >
+                        <a href="../Projects/Index?Page=1&CategoryID=@(item.ID)">
+                            <span class="filter-text">@item.CategoryName</span>
+
+                        </a>
+                    </li>
+                    @*<li><a href="../Projects/Index?CategoryID=@item.ID"></a><span class="filter-text">@item.CategoryName</span></li>*@
+                }
+            }
+        </ul>
+        <div class="row filter-layout masonary-layout">
+            @{
+                string path = System.Configuration.ConfigurationManager.AppSettings["ContentImages"];
+                foreach (var item in Model.projectModel)
+                {
+                    <!--Start single project item-->
+                    <div id="@item.ProjectTypeName" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 filter-item contem ret">
+                        <div class="single-project-style5">
+                            <div class="img-holder">
+                                <div class="inner">
+                                    <img src="@Url.Content(path + item.Image)" alt="Awesome Image">
+                                    <div class="overlay-box">
+                                        <div class="box">
+                                            <div class="link">
+                                                <a href="project-single.html"><span class="icon-out"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="title">
+                                <span>@item.Tittle</span>
+                                <h3><a href="project-single.html">@item.Description</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End single project item-->
+                }
+            }
+        </div>
+        @{
+
+            double TotalPage = @ViewBag.TotalPages;
+            TotalPage = TotalPage + 1;
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="post-pagination martop20 text-center">
+                    @if (ViewBag.Page > 1)
+                    {
+                        <li>
+                            <a href="~/Projects/Index?Page=1&CategoryID=@(ViewBag.category)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                        </li>
+                    }
+                    @if (ViewBag.Page == 1)
+                    {
+                        <li class="disabled"><a><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="../Projects/Insdex?Page=@((Convert.ToInt32(ViewBag.Page) - 1).ToString())&CategoryID=@(ViewBag.category)"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                    }
+                    @{
+                        int z = 0;
+                        for (int i = ViewBag.Page; i < TotalPage; i++)
+                        {
+                            z++;
+                            if (i == ViewBag.Page)
+                            {
+                                <li class="active">
+                                    <a href="#">@i.ToString()</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink(i.ToString() + "", "Index", new { Page = i, CategoryID = ViewBag.category })</li>
+                            }
+                            if (z == 5)
+                            { break; }
+                        }
+                        if (ViewBag.Page < ViewBag.TotalPages)
+                        {
+                            <li>
+                                <a href="../Projects?Page=@((Convert.ToInt32(ViewBag.Page) + 1).ToString())&CategoryID=@(ViewBag.category)">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../Projects/Index?Page=@((TotalPage)- 1)&CategoryID=@ViewBag.category">
+                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End Main project area style2-->

@@ -1,0 +1,290 @@
+﻿@model AdminPanel.Models.CustomModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- BEGIN: Page Main-->
+<div id="main">
+    <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+        <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+            <!-- Search for small screen-->
+            <div class="container">
+                <div class="row">
+                    <div class="col s10 m6 l6">
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Project</span></h5>
+                        <ol class="breadcrumbs mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index-2.html">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Project
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div id="Form-advance" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h4 class="card-title">Services Entry</h4>
+                        <form>
+                            <div class="row">
+                                <div class="input-field col m4 s12">
+                                    <input id="ProjectTItle" name="ProjectTItle" type="text">
+                                    <label for="ProjectTItle">Project TItle</label>
+                                </div>
+                                <div class="input-field col m4 s12">
+                                    <input id="ProjectDescription" name="ProjectDescription" type="text">
+                                    <label for="ProjectDescription">Project Description</label>
+                                </div>
+                                <div class="input-field col m4 s12">
+                                    <select id="ProjectType" name="ProjectType" class="select2 browser-default">
+                                        <option value="-1" selected>Select Project Type</option>
+                                        <option value="1">Android</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col m4 s12">
+                                    <input id="ProjectYear" name="ProjectYear" type="text">
+                                    <label for="ProjectYear">Project Year</label>
+                                </div>
+                                <div class="input-field col m4 s12">
+                                    <input id="ProjectHead" name="ProjectHead" type="text">
+                                    <label for="ProjectHead">Project Head</label>
+                                </div>
+                                <div class="input-field col m4 s12">
+                                    <select id="IsActive" name="IsActive">
+                                        <option value="1">Active</option>
+                                        <option value="0">DeActive</option>
+                                    </select>
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="view-multiple-file-input">
+                                    <div class="file-field col m8 s12">
+                                        <div class="btn">
+                                            <span>Upload Image</span>
+                                            <input type="file" id="Upload" multiple>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m4 s12">
+                                        <button class="btn cyan waves-effect waves-light right" onclick="InsertRecord();" type="submit" name="action">
+                                            Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m12">
+            <div class="container">
+                <div class="section">
+                    <div class="row" id="ecommerce-products">
+                        <div id="card-panel-type" class="section">
+                            <div class="row mt-2">
+                                @foreach (var item in Model.projectModel)
+                                {
+                                    <div class="col s12 m6 l3 card-width animate fadeLeft">
+                                        <div class="card-panel border-radius-6 mt-10 card-animation-1">
+                                            <img class="responsive-img border-radius-8 z-depth-4 image-n-margin"
+                                                 src="@item.Image" alt="images" />
+                                            <h6><a href="#" class="mt-5">@item.Tittle</a></h6>
+                                            <p class="card-title text-ellipsis">
+                                                @item.Description
+                                            </p>
+                                            <div class="row mt-4">
+                                                <div class="col s6 mt-1 right-align">
+                                                    <a class="mt-2 waves-effect waves-light gradient-45deg-deep-purple-blue btn btn-block modal-trigger z-depth-4"
+                                                       href="#modal1">Edit</a>
+                                                </div>
+                                                <div class="col s6 mt-1 right-align fadeInLeft">
+                                                    <a class="mt-2 waves-effect waves-light gradient-45deg-deep-purple-blue btn btn-block modal-trigger z-depth-4"
+                                                       href="#modal1">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="modal1" class="modal">
+                            <div class="modal-content pt-2">
+                                <div class="row" id="product-one">
+                                    <div class="col s12">
+                                        <a class="modal-close right"><i class="material-icons">close</i></a>
+                                    </div>
+                                    <div class="col m6 s12">
+                                        <img src="~/Content/images/cards/watch-2.png" class="responsive-img" alt="">
+                                    </div>
+                                    <div class="col m6 s12">
+                                        <p>Smartwatches</p>
+                                        <h5>Smartwatch 2.0 LTE Wifi</h5>
+                                        <span class="new badge left ml-0 mr-2" data-badge-caption="">4.2 Star</span>
+                                        <p>Availability: <span class="green-text">36 Item Available</span></p>
+                                        <hr class="mb-5">
+                                        <span class="vertical-align-top mr-4"><i class="material-icons mr-3">favorite_border</i>Wishlist</span>
+                                        <ul class="list-bullet">
+                                            <li class="list-item-bullet">Accept SIM card and call</li>
+                                            <li class="list-item-bullet">Make calling instead of mobile phone</li>
+                                            <li class="list-item-bullet">Sync music play and sync control music</li>
+                                            <li class="list-item-bullet">Sync Facebook,Twiter,emailand calendar</li>
+                                        </ul>
+                                        <h5>$399.00 <span class="prise-text-style ml-2">$459.00</span></h5>
+                                        <a class="waves-effect waves-light btn gradient-45deg-deep-purple-blue mt-2 mr-2">ADD TO CART</a>
+                                        <a class="waves-effect waves-light btn gradient-45deg-purple-deep-orange mt-2">BUY NOW</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="col s12 center">
+                            <ul class="pagination">
+                                <li class="disabled">
+                                    <a href="#!">
+                                        <i class="material-icons">chevron_left</i>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="#!">1</a>
+                                </li>
+                                <li class="waves-effect">
+                                    <a href="#!">2</a>
+                                </li>
+                                <li class="waves-effect">
+                                    <a href="#!">3</a>
+                                </li>
+                                <li class="waves-effect">
+                                    <a href="#!">4</a>
+                                </li>
+                                <li class="waves-effect">
+                                    <a href="#!">5</a>
+                                </li>
+                                <li class="waves-effect">
+                                    <a href="#!">
+                                        <i class="material-icons">chevron_right</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Page Main-->
+
+<script type="text/javascript">
+
+    function InsertRecord() {
+        var file = $('#Upload')[0].files;
+        var Tittle = $('#ProjectTItle').val();
+        var Descriprion = $('#ProjectDescription').val();
+        var ProjectType = $('#ProjectType').val();
+        var ProjectYear = $('#ProjectYear').val();
+        var ProjectHead = $('#ProjectHead').val();
+        var isActive = $('#IsActive').val();
+
+        if (File.length > 0) {
+
+            var Model = new FormData();
+            Model.append("Tittle", Tittle);
+            Model.append("Descriprion", Descriprion);
+            Model.append("ProjectType", ProjectType);
+            Model.append("ProjectYear", ProjectYear);
+            Model.append("ProjectHead", ProjectHead);
+            Model.append("IsActive", isActive);
+            for (var i = 0; i < file.length; i++) {
+                Model.append("file", file[i]);
+            }
+
+          return  $.ajax({                
+                type: "POST",
+                url: "/Projects/Insert",
+                data: Model,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+
+    function UpdateRecord() {
+        var file = $('#Upload')[0].files;
+        var Tittle = $('#ProjectTItle').val();
+        var Descriprion = $('#ProjectDescription').val();
+        var ProjectType = $('#ProjectType').val();
+        var ProjectYear = $('#ProjectYear').val();
+        var ProjectHead = $('#ProjectHead').val();
+        var isActive = $('#IsActive').val();
+
+        if (File.length > 0) {
+
+            var Model = new FormData();
+            Model.append("Tittle", Tittle);
+            Model.append("Descriprion", Descriprion);
+            Model.append("ProjectType", ProjectType);
+            Model.append("ProjectYear", ProjectYear);
+            Model.append("ProjectHead", ProjectHead);
+            Model.append("IsActive", isActive);
+            for (var i = 0; i < file.length; i++) {
+                Model.append("file", file[i]);
+            }
+
+          return  $.ajax({                
+                type: "POST",
+                url: "/Projects/Update",
+                data: Model,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+
+    function DeleteRecord(ID) {
+
+        return $.ajax({
+            type: "POST",
+            url: "/Projects/Insert",
+            data: ID,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                alert(result);
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+
+</script>
